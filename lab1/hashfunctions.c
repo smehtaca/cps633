@@ -3,13 +3,33 @@
 #include <stdlib.h>
 #include <string.h>
 
+char* computeHash(char* block0,char* block1, char* block2, char* block3);
+void E(char *in, char *out);
+
 //Calls E function with each block and combines the hased blocks into one hash
 char* computeHash(char* block0,char* block1, char* block2, char* block3 )
 {
-char* hash;
-hash = NULL;
+  char* hash, blocks;
+  hash = NULL;
+  blocks = NULL;
 
-return hash;
+  E(block0, blocks);
+  strcat (hash,blocks);
+  blocks = NULL;
+
+  E(block1, blocks);
+  strcat (hash,blocks);
+  blocks = NULL;
+
+  E(block2, blocks);
+  strcat (hash,blocks);
+  blocks = NULL;
+
+  E(block3, blocks);
+  strcat (hash,blocks);
+  blocks = NULL;
+
+  return hash;
 }
 
 
