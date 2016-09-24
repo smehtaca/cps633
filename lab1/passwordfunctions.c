@@ -2,20 +2,65 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
+#define MAXSTRLEN 12
+#define MINSTRLEN 4
 
-//Reads in N using tableReader where N is the amount of tries allowed
-int checkAttemptLimit()
+int checkPWCriteria(char* password);
+int isAlphaNumeric(char* password);
+int checkPWLength(char* password);
+char* pwPadder(char* password);
+char* pwToLowerCase(char* password);
+PW_blocks splitPW(char* password);
+
+//Checks if password is between 4 and 12 characters and alphanumeric
+int checkPWCriteria(char* password)
 {
+  if(!checkPWLength(password) && !isAlphaNumeric(password))
+  {
+    return 0;
+  }
+  else if (!checkPWLength(password) && isAlphaNumeric(password))
+  {
+    char* padded = pwPadder(password);
+    return checkPWCriteria(padded);
+  }
+  else
+  {
+      return 1;
+  }
+}
 
+//Checks if password is alphanumeric
+int isAlphaNumeric(char* password)
+{
+  int len = strlen(password);
+  int current;
+  for(int i = 0; i < len; i++)
+  {
+    current = password[i];
+    if(!isalnum(current))
+    {
+      return 1;
+    }
+  }
   return 0;
 }
 
-//Cheaks if password is between 4 and 12 characters and alphanumeric
-int chechPWCriteria(char* password)
+int checkPWLength(char* password)
 {
+  int len;
 
+  len = strlen(password);
 
-  return 0;
+  if(len < 12 && len > 4)
+  {
+      return 0;
+  }
+  else
+  {
+    return 1;
+  }
 }
 
 //Paddes password with \o if it's less than 12 characters
@@ -26,15 +71,6 @@ char* pwPadder(char* password)
 
 
   return paddedPW;
-}
-
-//Cheaks if password is alphanumeric
-int pwAlphaNumeric(char* password)
-{
-
-
-
-  return 0;
 }
 
 //Converts Upper case letters in password to lower case
