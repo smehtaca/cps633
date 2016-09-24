@@ -12,7 +12,7 @@ int isAlphaNumeric(char* password);
 int checkPWLength(char* password);
 char* pwPadder(char* password);
 char* toLowerCase(char* password);
-PW_blocks splitPW(char* password);
+
 
 //Checks if password is between 4 and 12 characters and alphanumeric
 int checkPWCriteria(char* password)
