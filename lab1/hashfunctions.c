@@ -6,8 +6,16 @@
 //Calls E function with each block and combines the hased blocks into one hash
 char* computeHash(char* block0,char* block1, char* block2, char* block3 )
 {
-char* hash;
+char* hash, blocks;
 hash = NULL;
+blocks = NULL;
+
+strcat (in, block0);
+strcat (in, block1);
+strcat (in, block2);
+strcat (in, block3);
+
+E(in, hash);
 
 return hash;
 }
