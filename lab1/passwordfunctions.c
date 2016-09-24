@@ -5,12 +5,13 @@
 #include <ctype.h>
 #define MAXSTRLEN 12
 #define MINSTRLEN 4
+#define BLOCKSIZE 4
 
 int checkPWCriteria(char* password);
 int isAlphaNumeric(char* password);
 int checkPWLength(char* password);
 char* pwPadder(char* password);
-char* pwToLowerCase(char* password);
+char* toLowerCase(char* password);
 PW_blocks splitPW(char* password);
 
 //Checks if password is between 4 and 12 characters and alphanumeric
@@ -63,29 +64,44 @@ int checkPWLength(char* password)
   }
 }
 
-//Paddes password with \o if it's less than 12 characters
+//Paddes password with \0
 char* pwPadder(char* password)
 {
   char* paddedPW;
   paddedPW = NULL;
+  int passlen = strlen(password);
 
+  paddedPW = (char *) malloc(sizeof(char) * MAXSTRLEN+1);
+  paddedPW = password;
 
+  int len = MAXSTRLEN - passlen;
+
+  for(int i = 0; i < len; i++)
+  {
+    paddedPW[i + passlen + 1] = '\0';
+  }
   return paddedPW;
 }
 
 //Converts Upper case letters in password to lower case
-char* pwToLowerCase(char* password)
+char* toLowerCase(char* password)
 {
   char* lowerCasePW;
   lowerCasePW = NULL;
-
+  lowerCasePW = (char *) malloc(sizeof(char) * MAXSTRLEN+1);
+  int len = strlen(password);
+  int current;
+  if(len == MAXSTRLEN)
+  {
+    lowerCasePW[len+1] = '\0';
+  }
+  for(int i = 0; i < len; i++)
+  {
+    current = password[i];
+    if(isupper(current))
+    {
+      lowerCasePW[i] = tolower(current);
+    }
+  }
   return lowerCasePW;
-}
-
-//Splits Password into a PW_blocks struct which is composed of 4 char pointers
-PW_blocks splitPW(char* password)
-{
-  PW_blocks split;
-
-  return split;
 }
