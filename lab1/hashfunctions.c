@@ -9,18 +9,27 @@ void E(char *in, char *out);
 //Calls E function with each block and combines the hased blocks into one hash
 char* computeHash(char* block0,char* block1, char* block2, char* block3 )
 {
-char* hash, blocks;
-hash = NULL;
-blocks = NULL;
+  char* hash, blocks;
+  hash = NULL;
+  blocks = NULL;
 
-strcat (blocks, block0);
-strcat (blocks, block1);
-strcat (blocks, block2);
-strcat (blocks, block3);
+  E(block0, blocks);
+  strcat (hash,blocks);
+  blocks = NULL;
 
-E(blocks, hash);
+  E(block1, blocks);
+  strcat (hash,blocks);
+  blocks = NULL;
 
-return hash;
+  E(block2, blocks);
+  strcat (hash,blocks);
+  blocks = NULL;
+
+  E(block3, blocks);
+  strcat (hash,blocks);
+  blocks = NULL;
+
+  return hash;
 }
 
 
