@@ -2,7 +2,10 @@
 #include <stdlib.h>
 #include <string.h>
 
-//Uses tableReader to check is user exists
+int checkUserExists(char* userID);
+int checkUIDCriteria(char* userID);
+
+//Uses tableReader to check if user exists
 int checkUserExists(char* userID)
 {
 
