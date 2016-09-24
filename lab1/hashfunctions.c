@@ -10,12 +10,12 @@ char* hash, blocks;
 hash = NULL;
 blocks = NULL;
 
-strcat (in, block0);
-strcat (in, block1);
-strcat (in, block2);
-strcat (in, block3);
+strcat (blocks, block0);
+strcat (blocks, block1);
+strcat (blocks, block2);
+strcat (blocks, block3);
 
-E(in, hash);
+E(blocks, hash);
 
 return hash;
 }
