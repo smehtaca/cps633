@@ -12,6 +12,9 @@ int checkUserExists(char* userID)
 //Checks if user id is between 4 and 32 characters
 int checkUIDCriteria(char* userID)
 {
-
-  return 0;
+  int len;
+  len = strlen(userID);
+  if (len > 32 || len < 4)
+     return 0;
+  else return 1;
 }
