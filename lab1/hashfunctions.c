@@ -3,11 +3,22 @@
 #include <stdlib.h>
 #include <string.h>
 
+char* computeHash(char* block0,char* block1, char* block2, char* block3);
+void E(char *in, char *out);
+
 //Calls E function with each block and combines the hased blocks into one hash
 char* computeHash(char* block0,char* block1, char* block2, char* block3 )
 {
-char* hash;
+char* hash, blocks;
 hash = NULL;
+blocks = NULL;
+
+strcat (blocks, block0);
+strcat (blocks, block1);
+strcat (blocks, block2);
+strcat (blocks, block3);
+
+E(blocks, hash);
 
 return hash;
 }
