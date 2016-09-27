@@ -8,5 +8,7 @@
 
 int main (void)
 {
+  char* test = "password";
   printf("\n");
+  checkPWCriteria(test);
 }

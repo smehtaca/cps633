@@ -1,2 +1,2 @@
-int findCred (char *);
-void resetPasswd(char*, char*);
+int findCred (char* str);
+void resetPasswd(char* old, char* new);

@@ -2,8 +2,8 @@
 #include<stdlib.h>
 #include<string.h>
 
-int findCred (char *);
-void resetPasswd(char*, char*);
+int findCred (char* str);
+void resetPasswd(char* old, char* new);
 //Method will search for either a username or password
 int findCred (char * str)
 {
