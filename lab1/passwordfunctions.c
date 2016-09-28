@@ -36,8 +36,8 @@ int checkPWCriteria(char* password)
 int isAlphaNumeric(char* password)
 {
   int len = strlen(password);
-  int current;
-  for(int i = 0; i < len; i++)
+  int current, i;
+  for(i = 0; i < len; i++)
   {
     current = password[i];
     if(!isalnum(current))
@@ -67,6 +67,7 @@ int checkPWLength(char* password)
 //Paddes password with \0
 char* pwPadder(char* password)
 {
+  int i;
   char* paddedPW;
   paddedPW = NULL;
   int passlen = strlen(password);
@@ -76,7 +77,7 @@ char* pwPadder(char* password)
 
   int len = MAXSTRLEN - passlen;
 
-  for(int i = 0; i < len; i++)
+  for(i = 0; i < len; i++)
   {
     paddedPW[i + passlen + 1] = '\0';
   }
@@ -90,12 +91,12 @@ char* toLowerCase(char* password)
   lowerCasePW = NULL;
   lowerCasePW = (char *) malloc(sizeof(char) * MAXSTRLEN+1);
   int len = strlen(password);
-  int current;
+  int current, i;
   if(len == MAXSTRLEN)
   {
     lowerCasePW[len+1] = '\0';
   }
-  for(int i = 0; i < len; i++)
+  for(i = 0; i < len; i++)
   {
     current = password[i];
     if(isupper(current))
