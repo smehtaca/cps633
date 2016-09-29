@@ -5,5 +5,5 @@
 
 int main (void)
 {
-  
+    resetPasswd("password9999", "alex1");
 }
