@@ -2,31 +2,34 @@
 #include<stdlib.h>
 #include<string.h>
 
-
-//Method can search for either a username or password
-int findCred (char * str)
+char * findCred (char * username)
 {
   FILE *fp;
-  char buf[33]; //buffer for username. Username can be up to 32 characters, add null that's 33
-  //not sure if leaving space for the null is necessary or not
+  char * user[32];//max 32 characters
+  char * pass[12];//exactly 12 characters
+  char * result;//to be returned
 
-  if (fp = fopen("testfile.txt", "r") == NULL){//if failed to open file
-      return(-1);
+  result = NULL;
+
+  if (fp = fopen("testfile.txt", "r") == NULL)
+  {//if failed to open file
+      exit(1);
   }
 
-  while (!feof(fp)) {
-    fscanf(fp, "%32s", buf);//read a string, max 32 chars
-    if(strcmp(str,buf)){
-      fclose(fp);
-      return 0;//found it
+  while (fscanf(fp, "%s %s", user, pass) != EOF)//read username and password
+  {
+    if(strcmp(user, username) == 0) //found it
+    {
+      result = pass;
+      break;
     }
-
   }
+
   fclose(fp);
-  return 1;//didn't find it
+  return result;
 }
 
-void resetPasswd(char* new, char* username)
+void resetPasswd(char* username, char* new)
 {
   FILE *originalfile = fopen("testfile.txt", "r");
   FILE *newfile = fopen("tempfile.txt","wt");
@@ -55,4 +58,29 @@ void resetPasswd(char* new, char* username)
   remove("testfile.txt");
   rename("tempfile.txt", "testfile.txt");
 
+}
+
+void newUser(char * username, char * hashpass)
+{
+  FILE *originalfile = fopen("testfile.txt", "r");
+  FILE *newfile = fopen("tempfile.txt","wt");
+
+  char * user[32];//max 32 characters
+  char * pass[12];//exactly 12 characters
+
+  while (fscanf(originalfile, "%s %s", user, pass) != EOF)//read username and password
+  {
+    //write the original line into newfile
+      fprintf(newfile, "%s %s\n", user, pass);
+  }
+  //write the new user into the end of the file
+  fprintf(newfile, "%s %s\n", username, hashpass);
+
+  //delete testfile.txt and rename newfile.txt to testfile.txt
+
+  fclose(originalfile);
+  fclose(newfile);
+
+  remove("testfile.txt");
+  rename("tempfile.txt", "testfile.txt");
 }
