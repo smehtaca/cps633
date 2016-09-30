@@ -16,7 +16,7 @@ int main (void)
       printf("Enter your userID\n");
       scanf("%s",userID);
       //TODO check if the user id is proper
-      if (findCred(userID) == 0) //found it
+      if (strcmp(findCred(userID),NULL) != 0) //found it
       {
         printf("UserID found. Enter your old password");
         scanf("%s", password);
