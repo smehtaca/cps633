@@ -8,11 +8,11 @@
 
 int main (void)
 {
-<<<<<<< HEAD
+
   char* test = "password";
   printf("\n");
   checkPWCriteria(test);
-=======
+
     int n = 0;
     char userID[32];
     char password[12];
@@ -61,5 +61,5 @@ int main (void)
     //if so, ask for a new password and replace it
     //otherwise increment attempts number
     }
->>>>>>> Alex's_Branch_3
+
 }

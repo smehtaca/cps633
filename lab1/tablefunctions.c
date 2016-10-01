@@ -2,14 +2,9 @@
 #include<stdlib.h>
 #include<string.h>
 
-<<<<<<< HEAD
-int findCred (char* str);
-void resetPasswd(char* old, char* new);
-//Method will search for either a username or password
-int findCred (char * str)
-=======
+
 char * findCred (char * username)
->>>>>>> Alex's_Branch_3
+
 {
   FILE *fp;
   char * user[32];//max 32 characters
@@ -18,21 +13,6 @@ char * findCred (char * username)
 
   result = NULL;
 
-<<<<<<< HEAD
-  if ((fp = fopen("testfile.txt", "r")) == NULL)
-  {//if failed to open file
-      return(-1);
-  }
-
-  while (!feof(fp))
-  {
-    //fscanf(fp, %32s, buf);//read a string, max 32 chars
-    fgets(buf,32,fp);
-    if(strcmp(str,buf))
-    {
-      fclose(fp);
-      return 0;//found it
-=======
   if (fp = fopen("testfile.txt", "r") == NULL)
   {//if failed to open file
       exit(1);
@@ -44,7 +24,7 @@ char * findCred (char * username)
     {
       result = pass;
       break;
->>>>>>> Alex's_Branch_3
+
     }
   }
 
