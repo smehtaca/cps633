@@ -9,7 +9,8 @@
 int main (void)
 {
 
-  char* test = "password";
+  char* test;
+  test = "password";
   printf("\n");
   checkPWCriteria(test);
 
@@ -17,14 +18,14 @@ int main (void)
     char userID[32];
     char password[12];
     char newpass[12];
-    char * hashpass;
+    char* hashpass = NULL;
 
     if(n != 3)
     {
       printf("Enter your userID\n");
       scanf("%s",userID);
       //TODO check if the user id is proper
-      if (strcmp(findCred(userID),NULL) != 0) //found it
+      if (strcmp(findCred(userID),"") != 0) //found it
       {
         printf("UserID found. Enter your old password");
         scanf("%s", password);
