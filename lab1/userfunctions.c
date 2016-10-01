@@ -10,7 +10,6 @@ int checkUIDCriteria(char* userID)
 {
   int len;
   len = strlen(userID);
-  if (len > 32 || len < 4)
-     return 0;
-  else return 1;
+  if (len > 32 || len < 4) return 1;
+  else return 0;
 }

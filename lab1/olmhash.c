@@ -21,9 +21,10 @@ int main (void)
 
       printf("Enter your userID\n");
       scanf("%s",userID);
+
       if(checkUIDCriteria(userID))
       {
-        printf("Your user id is invalid. Bye.");
+        printf("Your user id is invalid. Bye.1\n");
         return 0;
       }
       char* result = findCred(userID,3);
@@ -31,7 +32,7 @@ int main (void)
       {
         for(int i = 0; i < atoi(result); i++)
         {
-          printf("UserID found. Enter your old password");
+          printf("UserID found. Enter your old password\n");
           scanf("%s", password);
           char* foundPass = findCred(userID,2); //check matching password
 
@@ -53,29 +54,29 @@ int main (void)
 
         if(login)
         {
-          printf("You have exausted all login attempts. Bye.");
+          printf("You have exausted all login attempts. Bye.\n");
           return 0;
         }
 
         if (!login) //correct password
         {
-          printf("Login successful.");
-          printf("Enter pass or attempts to change password or number of login attempts");
+          printf("Login successful.\n");
+          printf("Enter pass or attempts to change password or number of login attempts\n");
           scanf("%s",input);
           if(strcmp(input,"pass"))
           {
-            printf("Enter new password");
+            printf("Enter new password\n");
             scanf("%s", newpass);
           }
           else if(strcmp(input,"attempts"))
           {
-            printf("Enter new attempt limit");
+            printf("Enter new attempt limit\n");
             scanf("%d", iter);
           }
 
           while(checkPWCriteria(newpass))
           {
-            printf("Passwords are alphanumeric only. Please try again.");
+            printf("Passwords are alphanumeric only. Please try again.\n");
             scanf("%s", newpass);
           }
 
@@ -90,7 +91,7 @@ int main (void)
 
         while(checkPWCriteria(password))
         {
-          printf("Passwords are alphanumeric only. Please try again.");
+          printf("Passwords are alphanumeric only. Please try again.\n");
           scanf("%s", password);
         }
 
