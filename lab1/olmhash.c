@@ -17,6 +17,7 @@ int main (void)
     char input[24];
     int iter;
     int login;
+    char* hashed;
 
       printf("Enter your userID\n");
       scanf("%s",userID);
@@ -32,9 +33,21 @@ int main (void)
         {
           printf("UserID found. Enter your old password");
           scanf("%s", password);
+          char* foundPass = findCred(userID,2); //check matching password
 
-          char * foundPass = findCred(userID,2); //check matching password
-          login = strcmp(foundPass, password);
+          char firstBlock[5], secondBlock[5], thirdBlock[5];
+
+          strncpy(firstBlock,password,4);
+          firstBlock[5] = '\0';
+
+          strncpy(secondBlock,password+4,4);
+          secondBlock[5] = '\0';
+
+          strncpy(thirdBlock,password+8,4);
+          thirdBlock[5] = '\0';
+
+          hashed = computeHash(firstBlock,secondBlock,thirdBlock);
+          login = strcmp(foundPass, hashed);
           if(!login) break;
         }
 
@@ -74,16 +87,27 @@ int main (void)
       {
         printf("Username not found. Please enter a password for this user\n");
         scanf("%s", password);
-        //TODO check if the password is proper
-        //TODO compute the hash
+
+        while(checkPWCriteria(password))
+        {
+          printf("Passwords are alphanumeric only. Please try again.");
+          scanf("%s", password);
+        }
+
+        char firstBlock[5], secondBlock[5], thirdBlock[5];
+
+        strncpy(firstBlock,password,4);
+        firstBlock[5] = '\0';
+
+        strncpy(secondBlock,password+4,4);
+        secondBlock[5] = '\0';
+
+        strncpy(thirdBlock,password+8,4);
+        thirdBlock[5] = '\0';
+
+        hashpass = computeHash(firstBlock,secondBlock,thirdBlock);
         newUser(userID, hashpass);
       }
-    //if not found, prompt password for new user (which was just entered)
-    //compute hash and add the username and password to the table
-    //if user id exists, prompt old password and hash it
-    //check if it matches in table
-    //if so, ask for a new password and replace it
-    //otherwise increment attempts number
 
 
 }
