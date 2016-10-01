@@ -71,6 +71,7 @@ char* pwPadder(char* password)
   char* paddedPW;
   paddedPW = NULL;
   int passlen = strlen(password);
+  int i;
 
   paddedPW = (char *) malloc(sizeof(char) * MAXSTRLEN+1);
   paddedPW = password;

@@ -2,14 +2,23 @@
 #include<stdlib.h>
 #include<string.h>
 
+<<<<<<< HEAD
 int findCred (char* str);
 void resetPasswd(char* old, char* new);
 //Method will search for either a username or password
 int findCred (char * str)
+=======
+char * findCred (char * username)
+>>>>>>> Alex's_Branch_3
 {
   FILE *fp;
-  char buf[33]; //buffer for username. Username can be up to 32 characters, add null that's 33
+  char * user[32];//max 32 characters
+  char * pass[12];//exactly 12 characters
+  char * result;//to be returned
 
+  result = NULL;
+
+<<<<<<< HEAD
   if ((fp = fopen("testfile.txt", "r")) == NULL)
   {//if failed to open file
       return(-1);
@@ -23,15 +32,78 @@ int findCred (char * str)
     {
       fclose(fp);
       return 0;//found it
-    }
-
+=======
+  if (fp = fopen("testfile.txt", "r") == NULL)
+  {//if failed to open file
+      exit(1);
   }
+
+  while (fscanf(fp, "%s %s", user, pass) != EOF)//read username and password
+  {
+    if(strcmp(user, username) == 0) //found it
+    {
+      result = pass;
+      break;
+>>>>>>> Alex's_Branch_3
+    }
+  }
+
   fclose(fp);
-  return 1;//didn't find it
+  return result;
 }
 
-
-void resetPasswd(char* old, char* new)
+void resetPasswd(char* username, char* new)
 {
-  //find the old password in the file and write the new one in its place
+  FILE *originalfile = fopen("testfile.txt", "r");
+  FILE *newfile = fopen("tempfile.txt","wt");
+  char * user[32];//max 32 characters
+  char * pass[12];//exactly 12 characters
+
+  while (fscanf(originalfile, "%s %s", user, pass) != EOF)//read username and password
+  {
+    if (strcmp(user, username) == 0)//if you find the username
+    {
+      //copy new as the new password and write to the newfile
+      fprintf(newfile, "%s %s\n", user, new);
+    }
+    else
+    {
+      //write the original line into newfile
+      fprintf(newfile, "%s %s\n", user, pass);
+    }
+  }
+
+  //delete testfile.txt and rename newfile.txt to testfile.txt
+
+  fclose(originalfile);
+  fclose(newfile);
+
+  remove("testfile.txt");
+  rename("tempfile.txt", "testfile.txt");
+
+}
+
+void newUser(char * username, char * hashpass)
+{
+  FILE *originalfile = fopen("testfile.txt", "r");
+  FILE *newfile = fopen("tempfile.txt","wt");
+
+  char * user[32];//max 32 characters
+  char * pass[12];//exactly 12 characters
+
+  while (fscanf(originalfile, "%s %s", user, pass) != EOF)//read username and password
+  {
+    //write the original line into newfile
+      fprintf(newfile, "%s %s\n", user, pass);
+  }
+  //write the new user into the end of the file
+  fprintf(newfile, "%s %s\n", username, hashpass);
+
+  //delete testfile.txt and rename newfile.txt to testfile.txt
+
+  fclose(originalfile);
+  fclose(newfile);
+
+  remove("testfile.txt");
+  rename("tempfile.txt", "testfile.txt");
 }
