@@ -9,40 +9,66 @@
 int main (void)
 {
 
-  char* test;
-  test = "password";
-  printf("\n");
-  checkPWCriteria(test);
-
     int n = 0;
     char userID[32];
     char password[12];
     char newpass[12];
     char* hashpass = NULL;
+    char input[24];
+    int iter;
+    int login;
 
-    if(n != 3)
-    {
       printf("Enter your userID\n");
       scanf("%s",userID);
-      //TODO check if the user id is proper
-      if (strcmp(findCred(userID),"") != 0) //found it
+      if(checkUIDCriteria(userID))
       {
-        printf("UserID found. Enter your old password");
-        scanf("%s", password);
-        //TODO compute the hash
-        char * foundPass = findCred(userID); //check matching password
-        if (strcmp(foundPass, password) == 0) //correct password
+        printf("Your user id is invalid. Bye.");
+        return 0;
+      }
+      char* result = findCred(userID,3);
+      if (strcmp(result,"") != 0) //found it
+      {
+        for(int i = 0; i < atoi(result); i++)
         {
-          printf("Login successful. Enter new password");
-          scanf("%s", newpass);
-          //TODO hash the new password
-          resetPasswd(userID, hashpass);
+          printf("UserID found. Enter your old password");
+          scanf("%s", password);
+
+          char * foundPass = findCred(userID,2); //check matching password
+          login = strcmp(foundPass, password);
+          if(!login) break;
         }
-        else
+
+        if(login)
         {
-          //otherwise increment n and go back
-          //TODO properly loop this part
+          printf("You have exausted all login attempts. Bye.");
+          return 0;
         }
+
+        if (!login) //correct password
+        {
+          printf("Login successful.");
+          printf("Enter pass or attempts to change password or number of login attempts");
+          scanf("%s",input);
+          if(strcmp(input,"pass"))
+          {
+            printf("Enter new password");
+            scanf("%s", newpass);
+          }
+          else if(strcmp(input,"attempts"))
+          {
+            printf("Enter new attempt limit");
+            scanf("%d", iter);
+          }
+
+          while(checkPWCriteria(newpass))
+          {
+            printf("Passwords are alphanumeric only. Please try again.");
+            scanf("%s", newpass);
+          }
+
+          resetCred(userID, hashpass, iter);
+        }
+
       }
       else//not found
       {
@@ -52,15 +78,12 @@ int main (void)
         //TODO compute the hash
         newUser(userID, hashpass);
       }
-
-    //check attempts
-    //prompt for user ID and check the table
     //if not found, prompt password for new user (which was just entered)
     //compute hash and add the username and password to the table
     //if user id exists, prompt old password and hash it
     //check if it matches in table
     //if so, ask for a new password and replace it
     //otherwise increment attempts number
-    }
+
 
 }
