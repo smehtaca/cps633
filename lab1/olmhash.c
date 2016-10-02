@@ -12,7 +12,7 @@ int main (void)
     char* userID = (char*) malloc(sizeof(char)*13);
     char* password = (char*) malloc(sizeof(char)*33);
     char* newpass = (char*) malloc(sizeof(char)*33);
-    char* hashpass = (char*)malloc(sizeof(char)*1024);
+  //  char* hashpass = (char*)malloc(sizeof(char)*1024);
     char* foundPass;
     char input[24];
     int iter = 0;
@@ -34,7 +34,7 @@ int main (void)
 
     result = findCred(userID);
     found = strcmp(result,"");
-
+    printf("%d",found);
     n = 5; //Using atoi kills it
     if (found != 0) //found it
     {
@@ -45,7 +45,7 @@ int main (void)
       {
         printf("UserID found. Enter your old password\n");
         scanf("%s", password);
-
+          puts(password);
           foundPass = findCred(userID); //for some reason never returns a proper result
           puts(foundPass);
 
@@ -98,21 +98,21 @@ int main (void)
             return 0;
           }
 
-        if( found == 0)//not found
+      else if(found == 0)//not found
+      {
+        printf("Username not found. Please enter a password for this user\n");
+        scanf("%s", password);
+
+        while(checkPWCriteria(password))
         {
-          printf("Username not found. Please enter a password for this user\n");
+          printf("Passwords are alphanumeric only. Please try again.\n");
           scanf("%s", password);
+        }
 
-          while(checkPWCriteria(password))
-          {
-            printf("Passwords are alphanumeric only. Please try again.\n");
-            scanf("%s", password);
-          }
+        printf("Please enter login attempt limit for this user\n");
+        scanf("%d", &iter);
 
-          printf("Please enter login attempt limit for this user\n");
-          scanf("%d", &iter);
-
-          char firstBlock[5], secondBlock[5], thirdBlock[5];
+        /* char firstBlock[5], secondBlock[5], thirdBlock[5];
 
           strncpy(firstBlock,password,4);
           firstBlock[5] = '\0';
@@ -124,7 +124,7 @@ int main (void)
           thirdBlock[5] = '\0';
 
           hashpass = computeHash(firstBlock,secondBlock,thirdBlock);
-          newUser(userID, hashpass);
+          newUser(userID, hashpass); */
           return 0;
         }
 
