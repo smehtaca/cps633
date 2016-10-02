@@ -17,7 +17,8 @@ int main (void)
     char input[24];
     int iter = 0;
     int login;
-  //  char* hashed;
+    int found;
+    char* hashed;
     char* result;
     int n = 1;
 
@@ -32,9 +33,10 @@ int main (void)
     }
 
     result = findCred(userID,3);
+    found = strcmp(result,"");
 
-    n = 5; //Setting result to n kills it
-    if (strcmp(result,"") != 0) //found it
+    n = 5; //Using atoi kills it
+    if (found != 0) //found it
     {
 
       result = findCred(userID,2);
@@ -45,8 +47,9 @@ int main (void)
         scanf("%s", password);
 
           foundPass = findCred(userID,2); //for some reason never returns a proper result
+          puts(foundPass);
 
-          /*char firstBlock[5], secondBlock[5], thirdBlock[5];
+          char firstBlock[5], secondBlock[5], thirdBlock[5];
 
           strncpy(firstBlock,password,4);
           firstBlock[5] = '\0';
@@ -57,20 +60,20 @@ int main (void)
           strncpy(thirdBlock,password+8,4);
           thirdBlock[5] = '\0';
 
-          hashed = computeHash(firstBlock,secondBlock,thirdBlock); */
-
+          hashed = computeHash(firstBlock,secondBlock,thirdBlock);
+          puts(hashed);
           login = strcmp(foundPass, password);//should compare foundPass and hashed
           if(!login) break;
 
         }
 
-        if(login != 0)
+        if((login != 0) && (found != 0))
         {
           printf("You have exausted all login attempts. Bye.\n");
           return 0;
         }
 
-        if (login == 0) //correct password
+        if ((login == 0 ) && (found != 0)) //correct password
         {
           printf("Login successful.\n");
           printf("Enter pass or attempts to change password or number of login attempts\n");
@@ -92,9 +95,10 @@ int main (void)
           }
 
             resetCred(userID, newpass, iter);
+            return 0;
           }
 
-        if( strcmp(result,"") == 0)//not found
+        if( found == 0)//not found
         {
           printf("Username not found. Please enter a password for this user\n");
           scanf("%s", password);
@@ -121,9 +125,10 @@ int main (void)
 
           hashpass = computeHash(firstBlock,secondBlock,thirdBlock);
           newUser(userID, hashpass, iter);
+          return 0;
         }
 
-        return 0;
+
 }
 
 }
