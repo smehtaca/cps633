@@ -97,7 +97,7 @@ int main (void)
             resetCred(userID, newpass);
             return 0;
           }
-
+      }
       else if(found == 0)//not found
       {
         printf("Username not found. Please enter a password for this user\n");
@@ -123,12 +123,12 @@ int main (void)
           strncpy(thirdBlock,password+8,4);
           thirdBlock[5] = '\0';
 
-          hashpass = computeHash(firstBlock,secondBlock,thirdBlock);
-          newUser(userID, hashpass); */
+          hashpass = computeHash(firstBlock,secondBlock,thirdBlock); */
+          newUser(userID, password);
           return 0;
         }
 
 
-}
+
 
 }

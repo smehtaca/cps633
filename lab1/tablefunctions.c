@@ -44,7 +44,7 @@ char* findCred(char* username)
 void resetCred(char* username, char* new_pass)
 {
   FILE *originalfile = fopen("testfile.txt", "r");
-  FILE *newfile = fopen("tempfile.txt","wt");
+  FILE *newfile = fopen("tempfile.txt","w+");
   char  user[32];//max 32 characters
   char*  pass = (char*)malloc(12);//exactly 12 characters
 
@@ -75,26 +75,8 @@ void resetCred(char* username, char* new_pass)
 
 void newUser(char* username, char* hashpass)
 {
-  FILE *originalfile = fopen("testfile.txt", "r");
-  FILE *newfile = fopen("tempfile.txt","wt");
-
-  char user[32];//max 32 characters
-  char*  pass = (char*)malloc(12);//exactly 12 characters
-
-
-  while (fscanf(originalfile, "%s %s", user, pass) != EOF)//read username and password
-  {
-    //write the original line into newfile
-      fprintf(newfile, "%s %s\n", user, pass);
-  }
-  //write the new user into the end of the file
-  fprintf(newfile, "%s %s\n", username, hashpass);
-
-  //delete testfile.txt and rename newfile.txt to testfile.txt
-
-  fclose(originalfile);
-  fclose(newfile);
-
-  remove("testfile.txt");
-  rename("tempfile.txt", "testfile.txt");
+  puts("NewUser");
+  FILE *db = fopen("testfile.txt", "a+");
+    fprintf(db, "%s %s \n", username, hashpass);
+  fclose(db);
 }
