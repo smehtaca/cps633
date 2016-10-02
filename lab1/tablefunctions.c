@@ -5,15 +5,15 @@
 #include <stdint.h>
 
 
-char* findCred(char* username,int field)
+char* findCred(char* username)
 {
   FILE *fp;
   char user[32];//max 32 characters
   char pass[12];//exactly 12 characters
-  char integerData[32];
+
   int N;
   char* result = (char*) malloc(sizeof(char)*1024);//to be returned
-  int checkField = field;
+
 
   if ((fp = fopen("testfile.txt", "r")) == NULL)
   {//if failed to open file
@@ -28,21 +28,10 @@ char* findCred(char* username,int field)
     if(!strcmp(user, username)) //found it
     {
 
-      if(checkField == 2)
-      {
 
-          result = pass;
+        result = pass;
 
-      }
-
-      if(checkField == 3)
-      {
-
-        sprintf(integerData, "%d", N);
-        result = integerData;
-      }
-
-      break;
+        break;
 
     }
   }

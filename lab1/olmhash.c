@@ -13,12 +13,12 @@ int main (void)
     char* password = (char*) malloc(sizeof(char)*33);
     char* newpass = (char*) malloc(sizeof(char)*33);
     char* hashpass = (char*)malloc(sizeof(char)*1024);
-    char* foundPass = (char*) malloc(sizeof(char)*1024);
+    char foundPass[48];
     char input[24];
     int iter = 0;
     int login;
     int found;
-    char* hashed;
+  //  char* hashed;
     char* result;
     int n = 1;
 
@@ -32,24 +32,24 @@ int main (void)
       return 0;
     }
 
-    result = findCred(userID,3);
+    result = findCred(userID);
     found = strcmp(result,"");
 
     n = 5; //Using atoi kills it
     if (found != 0) //found it
     {
 
-      result = findCred(userID,2);
+    //  result = findCred(userID);
 
       for(int i = 0; i < n; i++)
       {
         printf("UserID found. Enter your old password\n");
         scanf("%s", password);
 
-          foundPass = findCred(userID,2); //for some reason never returns a proper result
+          foundPass = findCred(userID); //for some reason never returns a proper result
           puts(foundPass);
 
-          char firstBlock[5], secondBlock[5], thirdBlock[5];
+      /*    char firstBlock[5], secondBlock[5], thirdBlock[5];
 
           strncpy(firstBlock,password,4);
           firstBlock[5] = '\0';
@@ -61,7 +61,7 @@ int main (void)
           thirdBlock[5] = '\0';
 
           hashed = computeHash(firstBlock,secondBlock,thirdBlock);
-          puts(hashed);
+          puts(hashed); */
           login = strcmp(foundPass, password);//should compare foundPass and hashed
           if(!login) break;
 
@@ -69,7 +69,7 @@ int main (void)
 
         if((login != 0) && (found != 0))
         {
-          printf("You have exausted all login attempts. Bye.\n");
+          printf("Too many unsuccessful attempts - your account is locked\n");
           return 0;
         }
 
