@@ -11,7 +11,7 @@ char* findCred(char* username)
   char user[32];//max 32 characters
   char pass[12];//exactly 12 characters
 
-  int N;
+
   char* result = (char*) malloc(sizeof(char)*1024);//to be returned
 
 
@@ -21,7 +21,7 @@ char* findCred(char* username)
   }
 
 
-  while (fscanf(fp, "%s %s %d", user, pass, &N) != EOF)
+  while (fscanf(fp, "%s %s", user, pass) != EOF)
 //read username and password
   {
 
@@ -40,25 +40,25 @@ char* findCred(char* username)
   return result; //somehow this is fine here but like after once it returns to olmhash, the value changes
 }
 
-void resetCred(char* username, char* new_pass, int new_iter)
+void resetCred(char* username, char* new_pass)
 {
   FILE *originalfile = fopen("testfile.txt", "r");
   FILE *newfile = fopen("tempfile.txt","wt");
   char  user[32];//max 32 characters
   char  pass[12];//exactly 12 characters
-  int N = 0;
 
-  while (fscanf(originalfile, "%s %s %d", user, pass, &N) != EOF)//read username and password
+
+  while (fscanf(originalfile, "%s %s", user, pass) != EOF)//read username and password
   {
     if (strcmp(user, username) == 0)//if you find the username
     {
       //copy new as the new password and write to the newfile
-      fprintf(newfile, "%s %s %d\n", user, new_pass,new_iter);
+      fprintf(newfile, "%s %s\n", user, new_pass);
     }
     else
     {
       //write the original line into newfile
-      fprintf(newfile, "%s %s %d\n", user, pass, N);
+      fprintf(newfile, "%s %s \n", user, pass);
     }
   }
 

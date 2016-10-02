@@ -13,7 +13,7 @@ int main (void)
     char* password = (char*) malloc(sizeof(char)*33);
     char* newpass = (char*) malloc(sizeof(char)*33);
     char* hashpass = (char*)malloc(sizeof(char)*1024);
-    char foundPass[48];
+    char* foundPass;
     char input[24];
     int iter = 0;
     int login;
@@ -94,7 +94,7 @@ int main (void)
             scanf("%d", &iter);
           }
 
-            resetCred(userID, newpass, iter);
+            resetCred(userID, newpass);
             return 0;
           }
 
@@ -124,7 +124,7 @@ int main (void)
           thirdBlock[5] = '\0';
 
           hashpass = computeHash(firstBlock,secondBlock,thirdBlock);
-          newUser(userID, hashpass, iter);
+          newUser(userID, hashpass);
           return 0;
         }
 
