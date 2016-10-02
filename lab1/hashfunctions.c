@@ -15,14 +15,17 @@ char* computeHash(char block0[4],char block1[4], char block2[4])
   E(block0, hashed_blocks);
   strcat(hashed,hashed_blocks);
 
+  printf("In hash: %s\n", hashed );
 
   E(block1, hashed_blocks);
   strcat (hashed,hashed_blocks);
 
+printf("In hash: %s\n", hashed );
 
   E(block2, hashed_blocks);
   strcat (hashed,hashed_blocks);
 
+printf("In hash: %s\n", hashed );
 
   return hashed;
 }

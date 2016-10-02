@@ -9,9 +9,9 @@
 int main (void)
 {
 
-    char* userID = (char*) malloc(sizeof(char)*13);
-    char* password = (char*) malloc(sizeof(char)*33);
-    char* newpass = (char*) malloc(sizeof(char)*33);
+    char* userID = (char*) malloc(sizeof(char)*33);
+    char* password = (char*) malloc(sizeof(char)*13);
+    char* newpass = (char*) malloc(sizeof(char)*13);
     char* hashpass = (char*)malloc(sizeof(char)*1024);
     char* foundPass;
     char input[24];
@@ -40,8 +40,8 @@ int main (void)
     {
 
     //  result = findCred(userID);
-
-      for(int i = 0; i < n; i++)
+      int i;
+      for(i = 0; i < n; i++)
       {
         printf("UserID found. Enter your old password\n");
         scanf("%s", password);
@@ -118,13 +118,13 @@ int main (void)
 
          char firstBlock[4], secondBlock[4], thirdBlock[4];
 
-          strncpy(firstBlock,password,4);
+          memcpy(firstBlock,password,4);
 
 
-          strncpy(secondBlock,password+4,4);
+          memcpy(secondBlock,password+4,4);
 
 
-          strncpy(thirdBlock,password+8,4);
+          memcpy(thirdBlock,password+8,4);
 
 
           hashpass = computeHash(firstBlock,secondBlock,thirdBlock);

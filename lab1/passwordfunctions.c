@@ -17,12 +17,15 @@ char* toLowerCase(char* password);
 //Checks if password is between 4 and 12 characters and alphanumeric
 int checkPWCriteria(char* password)
 {
-  if(!checkPWLength(password) && !isAlphaNumeric(password))
+  printf("In checkPWCriteria\n");
+  if(checkPWLength(password) == 0 && isAlphaNumeric(password) == 0)
   {
+    printf("In if 1: \n");
     return 0;
   }
-  else if (!checkPWLength(password) && isAlphaNumeric(password))
+  else if (!checkPWLength(password) == 1 && isAlphaNumeric(password) == 0)
   {
+printf("Calling padder: \n");
     char* padded = pwPadder(password);
     return checkPWCriteria(padded);
   }
@@ -42,9 +45,11 @@ int isAlphaNumeric(char* password)
     current = password[i];
     if(isalnum(current) == 0)
     {
+      printf("In alphanum return 1\n");
       return 1;
     }
   }
+  printf("In alphanum return 0\n");
   return 0;
 }
 
@@ -53,13 +58,15 @@ int checkPWLength(char* password)
   int len;
 
   len = strlen(password);
-
-  if(len < 12 && len > 4)
+printf("in checkPWLength\n");
+  if(len <= 12 && len >= 4)
   {
+    printf("returning 0\n");
       return 0;
   }
   else
   {
+    printf("returning 1\n");
     return 1;
   }
 }
@@ -72,7 +79,7 @@ char* pwPadder(char* password)
   paddedPW = NULL;
   int passlen = strlen(password);
 
-
+printf("In padder: \n");
   paddedPW = (char *) malloc(sizeof(char) * MAXSTRLEN+1);
   paddedPW = password;
 
@@ -80,8 +87,9 @@ char* pwPadder(char* password)
 
   for(i = 0; i < len; i++)
   {
-    paddedPW[i + passlen + 1] = '\0';
+    paddedPW[i + passlen + 1] = 'a';
   }
+printf("In padder: %s\n", paddedPW);
   return paddedPW;
 }
 
