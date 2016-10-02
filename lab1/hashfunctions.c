@@ -3,30 +3,28 @@
 #include <stdlib.h>
 #include <string.h>
 
-char* computeHash(char* block0,char* block1, char* block2);
+char* computeHash(char block0[4],char block1[4], char block2[4]);
 void E(char *in, char *out);
 
-//Calls E function with each block and combines the hased blocks into one hash
-char* computeHash(char* block0,char* block1, char* block2)
+//Calls E function with each block and combines the hased hashed_blocks into one hash
+char* computeHash(char block0[4],char block1[4], char block2[4])
 {
-  char* hash = (char*) malloc(sizeof(char)*420);
-  char* blocks = (char*) malloc(sizeof(char)*420);
-  hash = NULL;
-  blocks = NULL;
+  char *hashed_blocks = (char*) malloc(4);
+  char *hashed = (char*) malloc(12);
 
-  E(block0, blocks);
-  strcat (hash,blocks);
-  blocks = NULL;
+  E(block0, hashed_blocks);
+  strcat(hashed,hashed_blocks);
 
-  E(block1, blocks);
-  strcat (hash,blocks);
-  blocks = NULL;
 
-  E(block2, blocks);
-  strcat (hash,blocks);
-  free(blocks);
+  E(block1, hashed_blocks);
+  strcat (hashed,hashed_blocks);
 
-  return hash;
+
+  E(block2, hashed_blocks);
+  strcat (hashed,hashed_blocks);
+
+
+  return hashed;
 }
 
 

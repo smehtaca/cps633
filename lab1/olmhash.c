@@ -12,13 +12,13 @@ int main (void)
     char* userID = (char*) malloc(sizeof(char)*13);
     char* password = (char*) malloc(sizeof(char)*33);
     char* newpass = (char*) malloc(sizeof(char)*33);
-  //  char* hashpass = (char*)malloc(sizeof(char)*1024);
+    char* hashpass = (char*)malloc(sizeof(char)*1024);
     char* foundPass;
     char input[24];
     int iter = 0;
     int login;
     int found;
-  //  char* hashed;
+    char* hashed;
     char* result;
     int n = 1;
 
@@ -34,7 +34,7 @@ int main (void)
 
     result = findCred(userID);
     found = strcmp(result,"");
-    printf("%d",found);
+
     n = 5; //Using atoi kills it
     if (found != 0) //found it
     {
@@ -45,25 +45,29 @@ int main (void)
       {
         printf("UserID found. Enter your old password\n");
         scanf("%s", password);
-          puts(password);
-          foundPass = findCred(userID); //for some reason never returns a proper result
-          puts(foundPass);
 
-      /*    char firstBlock[5], secondBlock[5], thirdBlock[5];
+        foundPass = findCred(userID); //for some reason never returns a proper result
 
-          strncpy(firstBlock,password,4);
-          firstBlock[5] = '\0';
+        if(!strcmp(foundPass,password))
+        {
+          char firstBlock[4], secondBlock[4], thirdBlock[4];
 
-          strncpy(secondBlock,password+4,4);
-          secondBlock[5] = '\0';
+           strncpy(firstBlock,password,4);
 
-          strncpy(thirdBlock,password+8,4);
-          thirdBlock[5] = '\0';
 
-          hashed = computeHash(firstBlock,secondBlock,thirdBlock);
-          puts(hashed); */
-          login = strcmp(foundPass, password);//should compare foundPass and hashed
-          if(!login) break;
+           strncpy(secondBlock,password+4,4);
+
+
+
+           strncpy(thirdBlock,password+8,4);
+
+
+           hashed = computeHash(firstBlock,secondBlock,thirdBlock);
+           puts(hashed);
+           login = strcmp(foundPass, hashed);//should compare foundPass and hashed
+           if(!login) break;
+         }
+
 
         }
 
@@ -112,19 +116,20 @@ int main (void)
         printf("Please enter login attempt limit for this user\n");
         scanf("%d", &iter);
 
-        /* char firstBlock[5], secondBlock[5], thirdBlock[5];
+         char firstBlock[4], secondBlock[4], thirdBlock[4];
 
           strncpy(firstBlock,password,4);
-          firstBlock[5] = '\0';
+
 
           strncpy(secondBlock,password+4,4);
-          secondBlock[5] = '\0';
+
 
           strncpy(thirdBlock,password+8,4);
-          thirdBlock[5] = '\0';
 
-          hashpass = computeHash(firstBlock,secondBlock,thirdBlock); */
-          newUser(userID, password);
+
+          hashpass = computeHash(firstBlock,secondBlock,thirdBlock);
+          puts(hashpass);
+          newUser(userID, hashpass);//write hashpass
           return 0;
         }
 
