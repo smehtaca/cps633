@@ -10,21 +10,24 @@ void E(char *in, char *out);
 char* computeHash(char block0[4],char block1[4], char block2[4])
 {
   char *hashed_blocks = (char*) malloc(4);
-  char *hashed = (char*) malloc(12);
+ char *hashed = (char*) malloc(12);
 
-  E(block0, hashed_blocks);
-  strcat(hashed,hashed_blocks);
+ E(block0, hashed_blocks);
+ strcat(hashed,hashed_blocks);
 
+ printf("In hash: %s\n", hashed );
 
-  E(block1, hashed_blocks);
-  strcat (hashed,hashed_blocks);
+ E(block1, hashed_blocks);
+ strcat (hashed,hashed_blocks);
 
+printf("In hash: %s\n", hashed );
 
-  E(block2, hashed_blocks);
-  strcat (hashed,hashed_blocks);
+ E(block2, hashed_blocks);
+ strcat (hashed,hashed_blocks);
 
+printf("In hash: %s\n", hashed );
 
-  return hashed;
+ return hashed;
 }
 
 

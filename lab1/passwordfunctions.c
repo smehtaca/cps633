@@ -17,17 +17,21 @@ char* toLowerCase(char* password);
 //Checks if password is between 4 and 12 characters and alphanumeric
 int checkPWCriteria(char* password)
 {
+  puts("Checking PW Criteria");
   if(!checkPWLength(password) && !isAlphaNumeric(password))
   {
+    puts("1st IF");
     return 0;
   }
-  else if (!checkPWLength(password) && isAlphaNumeric(password))
+  else if (checkPWLength(password) && !isAlphaNumeric(password))
   {
+    puts("2nd IF");
     char* padded = pwPadder(password);
-    return checkPWCriteria(padded);
+    return checkPWLength(padded);
   }
   else
   {
+      puts("3rd IF");
       return 1;
   }
 }
@@ -40,7 +44,7 @@ int isAlphaNumeric(char* password)
   for(i = 0; i < len; i++)
   {
     current = password[i];
-    if(isalnum(current) == 0)
+    if(isalnum(current) == 0) //If not alphanumeric, returns 0
     {
       return 1;
     }
@@ -54,7 +58,7 @@ int checkPWLength(char* password)
 
   len = strlen(password);
 
-  if(len < 12 && len > 4)
+  if(len <= 12 && len >= 4) //return 0 if meets criteria
   {
       return 0;
   }

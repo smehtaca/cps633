@@ -86,7 +86,7 @@ int main (void)
           {
             printf("Enter new password\n");
             scanf("%s", newpass);
-            while(checkPWCriteria(newpass))
+            while(!checkPWCriteria(newpass))
             {
               printf("Passwords are alphanumeric only. Please try again.\n");
               scanf("%s", newpass);
