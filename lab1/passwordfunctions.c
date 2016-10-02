@@ -17,11 +17,11 @@ char* toLowerCase(char* password);
 //Checks if password is between 4 and 12 characters and alphanumeric
 int checkPWCriteria(char* password)
 {
-  if(!checkPWLength(password) && !isAlphaNumeric(password))
+  if(!checkPWLength(password) && isAlphaNumeric(password))
   {
     return 0;
   }
-  else if (!checkPWLength(password) && isAlphaNumeric(password))
+  else if (checkPWLength(password) && !isAlphaNumeric(password))
   {
     char* padded = pwPadder(password);
     return checkPWCriteria(padded);
