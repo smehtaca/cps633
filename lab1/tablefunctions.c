@@ -1,6 +1,8 @@
-#include<stdio.h>
-#include<stdlib.h>
-#include<string.h>
+#include "tablefunctions.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdint.h>
 
 
 char* findCred(char* username,int field)
@@ -8,29 +10,45 @@ char* findCred(char* username,int field)
   FILE *fp;
   char user[32];//max 32 characters
   char pass[12];//exactly 12 characters
+  char integerData[32];
   int N;
-  char* result;//to be returned
-
-  result = NULL;
+  char* result = (char*) malloc(sizeof(char)*1024);//to be returned
+  int checkField = field;
 
   if ((fp = fopen("testfile.txt", "r")) == NULL)
   {//if failed to open file
       exit(1);
   }
 
-  while (fscanf(fp, "%s %s %d", user, pass, N) != EOF)//read username and password
+
+  while (fscanf(fp, "%s %s %d", user, pass, &N) != EOF)
+//read username and password
   {
-    if(strcmp(user, username) == 0) //found it
+
+    if(!strcmp(user, username)) //found it
     {
-      if(field == 2) result = pass;
-      if(field == 3) sprintf(result, "%d", N);
+
+      if(checkField == 2)
+      {
+
+          result = pass;
+
+      }
+
+      if(checkField == 3)
+      {
+
+        sprintf(integerData, "%d", N);
+        result = integerData;
+      }
+
       break;
 
     }
   }
 
   fclose(fp);
-  return result;
+  return result; //somehow this is fine here but like after once it returns to olmhash, the value changes
 }
 
 void resetCred(char* username, char* new_pass, int new_iter)
@@ -39,9 +57,9 @@ void resetCred(char* username, char* new_pass, int new_iter)
   FILE *newfile = fopen("tempfile.txt","wt");
   char  user[32];//max 32 characters
   char  pass[12];//exactly 12 characters
-  int N;
+  int N = 0;
 
-  while (fscanf(originalfile, "%s %s %d", user, pass,N) != EOF)//read username and password
+  while (fscanf(originalfile, "%s %s %d", user, pass, &N) != EOF)//read username and password
   {
     if (strcmp(user, username) == 0)//if you find the username
     {
@@ -72,9 +90,9 @@ void newUser(char* username, char* hashpass, int iterations)
 
   char user[32];//max 32 characters
   char pass[12];//exactly 12 characters
-  int N;
+  int N = 0;
 
-  while (fscanf(originalfile, "%s %s %d", user, pass,N) != EOF)//read username and password
+  while (fscanf(originalfile, "%s %s %d", user, pass, &N) != EOF)//read username and password
   {
     //write the original line into newfile
       fprintf(newfile, "%s %s %d\n", user, pass,N);

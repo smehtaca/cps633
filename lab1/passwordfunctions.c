@@ -40,7 +40,7 @@ int isAlphaNumeric(char* password)
   for(i = 0; i < len; i++)
   {
     current = password[i];
-    if(!isalnum(current))
+    if(isalnum(current) == 0)
     {
       return 1;
     }
